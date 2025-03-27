@@ -1,5 +1,5 @@
 """
-Stub file for capsa module
+Stub file for c_utils module
 """
 
 Card = tuple[int, int]

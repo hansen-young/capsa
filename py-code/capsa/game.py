@@ -1,85 +1,8 @@
 from __future__ import annotations
 import random
-from abc import ABC, abstractmethod
-from typing import TypeAlias
 
-from .c_utils import GameState, generateCandidateMoves
-
-
-Card: TypeAlias = tuple[int, int]  # (value, suit)
-CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-CARD_SUITS = ["♦", "♣", "♥", "♠"]
-
-
-def cardToString(card: Card):
-    value = CARD_VALUES[card[0] % 13]
-    suit = CARD_SUITS[card[1]]
-    return f"{value}{suit}"
-
-
-def display_cards(cards: list[Card]):
-    for card in cards:
-        print(cardToString(card), end=" ")
-    print()
-
-
-def display_player_cards(player_id: int, state: GameState):
-    cards = []
-
-    for i, owner in enumerate(state.cards):
-        if owner == player_id:
-            cards.append((i, i // 13))
-
-    display_cards(cards)
-
-
-class Player(ABC):
-    def __init__(self, name: str):
-        self.name = name
-
-    @abstractmethod
-    def make_move(
-        self, player_id: int, candidate_moves: list[list[Card]], state: GameState
-    ) -> int: ...
-
-
-class HumanPlayer(Player):
-    def make_move(self, player_id, candidate_moves, state):
-        print(f"[{self.name} Turn]")
-
-        print("Last Played Cards: ", end="")
-        display_cards(state.lastPlayedCards)
-
-        print("\nCards in Hand:")
-        display_player_cards(player_id, state)
-
-        print("\nCandidate Moves:")
-        for i, move in enumerate(candidate_moves):
-            print(f"{i}. ", end="")
-            display_cards(move)
-
-        move = -1
-        while move < 0 or move >= len(candidate_moves):
-            try:
-                move = int(input("Enter move: "))
-            except Exception:
-                pass
-
-        print(f"\n{self.name} played: ", end="")
-        display_cards(candidate_moves[move])
-        print("\n" + "=" * 20)
-
-        return move
-
-
-class BotPlayer(Player):
-    def make_move(self, player_id, candidate_moves, state):
-        print(f"[{self.name} Turn]")
-        move = random.randint(0, len(candidate_moves) - 1)
-        print(f"{self.name} played: ", end="")
-        display_cards(candidate_moves[move])
-        print("\n" + "=" * 20)
-        return move
+from .players import Player
+from .utils import GameState, display_cards, generateCandidateMoves
 
 
 class CapsaGame:
@@ -120,8 +43,12 @@ class CapsaGame:
 
             if not self.state.playerPassFlag[self.player_turn]:
                 player = self.players[self.player_turn]
+                print(f"[{player.name} Turn]")
                 candidate_moves = generateCandidateMoves(self.player_turn, self.state)
                 move = player.make_move(self.player_turn, candidate_moves, self.state)
+                print(f"{player.name} played: ", end="")
+                display_cards(candidate_moves[move])
+                print("\n" + "=" * 20)
                 self.state.update(self.player_turn, candidate_moves[move])
 
             self.player_turn = (self.player_turn + 1) % self.NUM_PLAYERS

@@ -1,10 +1,10 @@
-from capsa import CapsaGame, HumanPlayer, BotPlayer
+from capsa import CapsaGame, HumanPlayer, RandomBot
 
 players = [
     HumanPlayer("Player 1"),
-    BotPlayer("Player 2"),
-    BotPlayer("Player 3"),
-    BotPlayer("Player 4"),
+    RandomBot("Player 2"),
+    RandomBot("Player 3"),
+    RandomBot("Player 4"),
 ]
 game = CapsaGame(players)
 game.start()
