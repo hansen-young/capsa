@@ -1,0 +1,23 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "gcc-debug",
+            "displayName": "GCC 9.4.0 Debug",
+            "description": "Debug using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_BUILD_TYPE": "Debug",
+
+                "pybind11_DIR": "/home/hyunix/miniconda3/envs/p310/lib/python3.10/site-packages/pybind11/share/cmake/pybind11",
+                "PYTHON_INCLUDE": "/home/hyunix/miniconda3/envs/p310/include/python3.10",
+                "PYBIND11_INCLUDE": "/home/hyunix/miniconda3/envs/p310/lib/python3.10/site-packages/pybind11/include",
+
+                "PYTHON_MODULE_PATH": "${sourceDir}/py-code/capsa/"
+            }
+        }
+    ]
+}
