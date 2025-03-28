@@ -15,8 +15,8 @@ def cardToString(card: Card):
 
 def display_cards(cards: list[Card]):
     for card in cards:
-        print(cardToString(card), end=" ")
-    print()
+        cprint(cardToString(card), end=" ")
+    cprint()
 
 
 def display_player_cards(player_id: int, state: GameState):

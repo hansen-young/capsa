@@ -43,12 +43,12 @@ class CapsaGame:
 
             if not self.state.playerPassFlag[self.player_turn]:
                 player = self.players[self.player_turn]
-                print(f"[{player.name} Turn]")
+                cprint(f"[{player.name} Turn]")
                 candidate_moves = generateCandidateMoves(self.player_turn, self.state)
                 move = player.make_move(self.player_turn, candidate_moves, self.state)
-                print(f"{player.name} played: ", end="")
+                cprint(f"{player.name} played: ", end="")
                 display_cards(candidate_moves[move])
-                print("\n" + "=" * 20)
+                cprint("\n" + "=" * 20)
                 self.state.update(self.player_turn, candidate_moves[move])
 
             self.player_turn = (self.player_turn + 1) % self.NUM_PLAYERS
@@ -59,9 +59,9 @@ class CapsaGame:
 
         for i, is_active in enumerate(self.state.activePlayerFlag):
             if is_active:
-                print(f"{self.players[i].name} losts!")
+                cprint(f"{self.players[i].name} losts!")
 
-        print("Game Over!")
+        cprint("Game Over!")
 
     def _validate_attrs(self):
         if len(self.players) != self.NUM_PLAYERS:
