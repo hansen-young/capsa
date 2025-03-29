@@ -47,6 +47,43 @@ Card valueOfStraight(std::vector<Card> &cards);
 Card valueOfFlush(std::vector<Card> &cards);
 Card valueOfFullHouse(std::vector<Card> &cards);
 Card valueOfFourOfAKind(std::vector<Card> &cards);
+std::pair<int, Card> valueOfPack(std::vector<Card> &cards);
+
+
+void generateNOfAKind(size_t n, std::unordered_map<int, std::vector<Card>> &cardValueGroup, std::vector<std::vector<Card>> &result);
+void generateMovesPass(std::vector<Card> &cards, std::vector<Card> &lastPlayedCards, std::vector<std::vector<Card>> &moves);
+void generateMovesSingle(std::vector<Card> &cards, std::vector<Card> &lastPlayedCards, std::vector<std::vector<Card>> &moves);
+void generateMovesPair(std::vector<Card> &cards, 
+                       std::vector<Card> &lastPlayedCards, 
+                       std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                       std::vector<std::vector<Card>> &moves);
+void generateMovesStraight(int lastPlayedPackType, 
+                           Card &lastPlayedPackValue, 
+                           std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                           std::vector<std::vector<Card>> &moves);
+void generateMovesFlush(int lastPlayedPackType,
+                        Card &lastPlayedPackValue, 
+                        std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
+                        std::vector<std::vector<Card>> &moves);
+void generateMovesFullHouse(int lastPlayedPackType,
+                            Card &lastPlayedPackValue,
+                            std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                            std::vector<std::vector<Card>> &moves);
+void generateFourOfAKind(int lastPlayedPackType,
+                         Card &lastPlayedPackValue,
+                         std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                         std::vector<std::vector<Card>> &moves);
+void generateMovesPack(std::vector<Card> &cards,
+                       std::vector<Card> &lastPlayedCards,
+                       std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                       std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
+                       std::vector<std::vector<Card>> &moves);
+
+std::vector<Card> getPlayerCardsInHand(size_t playerId, GameState state);
+std::unordered_map<int, std::vector<Card>> groupCardsByValue(std::vector<Card> &cards);
+std::unordered_map<int, std::vector<Card>> groupCardsBySuit(std::vector<Card> &cards);
+
 std::vector<std::vector<Card>> generateCandidateMoves(size_t playerId, GameState state);
+GameState simulateMove(size_t playerId, GameState state, std::vector<Card> &playedCards);
 
 #endif // LOGIC_H

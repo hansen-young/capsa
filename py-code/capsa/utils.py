@@ -1,6 +1,12 @@
 from typing import TypeAlias
-from .c_utils import GameState, generateCandidateMoves
-
+from .c_utils import (
+    GameState,
+    createBotFeatures1,
+    generateCandidateMoves,
+    simulateMove,
+    valueOfPack,
+)
+from .logging import cprint
 
 Card: TypeAlias = tuple[int, int]  # (value, suit)
 CARD_VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]

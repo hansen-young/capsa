@@ -3,6 +3,7 @@ import random
 
 from .players import Player
 from .utils import GameState, display_cards, generateCandidateMoves
+from .logging import cprint
 
 
 class CapsaGame:
@@ -12,6 +13,7 @@ class CapsaGame:
         self.players: list[Player] = players
         self.player_turn: int = 0
         self.state: GameState
+        self.ranks: list[int]
         self.reset()
 
     def generate_new_gamestate(self):
@@ -31,6 +33,7 @@ class CapsaGame:
         self._validate_attrs()
         self.state = self.generate_new_gamestate()
         self.player_turn = self.state.lastMovePlayerId
+        self.ranks = [-1] * self.NUM_PLAYERS
 
     def start_turn(self):
         self.state.clearLastPlayedCards()
@@ -51,15 +54,28 @@ class CapsaGame:
                 cprint("\n" + "=" * 20)
                 self.state.update(self.player_turn, candidate_moves[move])
 
+                if not self.state.activePlayerFlag[self.player_turn]:
+                    rank = 3 - self.state.numActivePlayers()
+                    self.ranks[self.player_turn] = rank
+                    cprint(f"{player.name} finished rank {rank + 1}!")
+
             self.player_turn = (self.player_turn + 1) % self.NUM_PLAYERS
 
     def start(self):
+        self.reset()
+
+        for i, player in enumerate(self.players):
+            player.on_game_start()
+
         while self.state.numActivePlayers() > 1:
             self.start_turn()
 
-        for i, is_active in enumerate(self.state.activePlayerFlag):
-            if is_active:
-                cprint(f"{self.players[i].name} losts!")
+        for i, player in enumerate(self.players):
+            if self.state.activePlayerFlag[i]:
+                self.ranks[i] = 3
+                cprint(f"{player.name} losts!")
+
+            player.on_game_end(self.ranks[i])
 
         cprint("Game Over!")
 

@@ -161,11 +161,7 @@ std::pair<int, Card> valueOfPack(std::vector<Card> &cards) {
 }
 
 
-void generateNOfAKind(
-    size_t n,
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup, 
-    std::vector<std::vector<Card>> &result
-) {
+void generateNOfAKind(size_t n, std::unordered_map<int, std::vector<Card>> &cardValueGroup, std::vector<std::vector<Card>> &result) {
     if (n == 0) { return; } 
 
     for (auto &valueGroup : cardValueGroup) {
@@ -192,12 +188,10 @@ void generateMovesSingle(std::vector<Card> &cards, std::vector<Card> &lastPlayed
     }
 }
 
-void generateMovesPair(
-    std::vector<Card> &cards,
-    std::vector<Card> &lastPlayedCards, 
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateMovesPair(std::vector<Card> &cards,
+                       std::vector<Card> &lastPlayedCards, 
+                       std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                       std::vector<std::vector<Card>> &moves) {
     if (lastPlayedCards.size() != 2 && !lastPlayedCards.empty()) { return; }
     Card lastPlayed = lastPlayedCards.empty()? CARD_NULL : valueOfPair(lastPlayedCards);
     
@@ -210,12 +204,10 @@ void generateMovesPair(
     }
 }
 
-void generateMovesStraight(
-    int lastPlayedPackType,
-    Card &lastPlayedPackValue,
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateMovesStraight(int lastPlayedPackType,
+                           Card &lastPlayedPackValue,
+                           std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                           std::vector<std::vector<Card>> &moves) {
     if (lastPlayedPackType > PACK_STRAIGHT) { return; }
 
     // nb: temporary map 0 (Ace) -> 13 (High Ace) and 1 (2) -> 14 (High 2)
@@ -257,12 +249,10 @@ void generateMovesStraight(
     if (cardValueGroup.find(1) != cardValueGroup.end()) { cardValueGroup.erase(1); }
 }
 
-void generateMovesFlush(
-    int lastPlayedPackType,
-    Card &lastPlayedPackValue, 
-    std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateMovesFlush(int lastPlayedPackType,
+                        Card &lastPlayedPackValue, 
+                        std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
+                        std::vector<std::vector<Card>> &moves) {
     // nb: straight flush will also be generated in this function
     std::pair<int, Card> lastPlayed = {lastPlayedPackType, lastPlayedPackValue};
 
@@ -285,12 +275,10 @@ void generateMovesFlush(
     }
 }
 
-void generateMovesFullHouse(
-    int lastPlayedPackType,
-    Card &lastPlayedPackValue,
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateMovesFullHouse(int lastPlayedPackType,
+                            Card &lastPlayedPackValue,
+                            std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                            std::vector<std::vector<Card>> &moves) {
     if (lastPlayedPackType > PACK_FULL_HOUSE) { return; }
 
     std::vector<std::vector<Card>> pairs;
@@ -312,12 +300,10 @@ void generateMovesFullHouse(
     }
 }
 
-void generateFourOfAKind(
-    int lastPlayedPackType,
-    Card &lastPlayedPackValue,
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateFourOfAKind(int lastPlayedPackType,
+                         Card &lastPlayedPackValue,
+                         std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                         std::vector<std::vector<Card>> &moves) {
     if (lastPlayedPackType > PACK_FOUR_OF_A_KIND) { return; }
 
     for (auto &vGroupOuter : cardValueGroup) {
@@ -336,18 +322,11 @@ void generateFourOfAKind(
     }
 }
 
-void removeDuplicateMoves(std::vector<std::vector<Card>> &moves) {
-    std::sort(moves.begin(), moves.end());
-    moves.erase(std::unique(moves.begin(), moves.end()), moves.end());
-}
-
-void generateMovesPack(
-    std::vector<Card> &cards,
-    std::vector<Card> &lastPlayedCards,
-    std::unordered_map<int, std::vector<Card>> &cardValueGroup,
-    std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
-    std::vector<std::vector<Card>> &moves
-) {
+void generateMovesPack(std::vector<Card> &cards,
+                       std::vector<Card> &lastPlayedCards,
+                       std::unordered_map<int, std::vector<Card>> &cardValueGroup,
+                       std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
+                       std::vector<std::vector<Card>> &moves) {
     auto lastPlayedPack = valueOfPack(lastPlayedCards);
     auto lastPlayedPackType = lastPlayedPack.first;
     auto lastPlayedPackValue = lastPlayedPack.second;
@@ -357,8 +336,6 @@ void generateMovesPack(
     generateMovesFlush(lastPlayedPackType, lastPlayedPackValue, cardSuitGroup, moves);
     generateMovesFullHouse(lastPlayedPackType, lastPlayedPackValue, cardValueGroup, moves);
     generateFourOfAKind(lastPlayedPackType, lastPlayedPackValue, cardValueGroup, moves);
-
-    // removeDuplicateMoves(moves);
 }
 
 
@@ -410,4 +387,9 @@ std::vector<std::vector<Card>> generateCandidateMoves(size_t playerId, GameState
     generateMovesPack(cardsInHand, state.lastPlayedCards, cardValueGroup, cardSuitGroup, moves);
 
     return moves;
+}
+
+GameState simulateMove(size_t playerId, GameState state, std::vector<Card> &playedCards) {
+    state.update(playerId, playedCards);
+    return state;
 }

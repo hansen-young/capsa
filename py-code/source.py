@@ -1,7 +1,8 @@
-from capsa import CapsaGame, HumanPlayer, RandomBot
+from capsa import CapsaGame
+from capsa.players.bots import RandomBot
 
 players = [
-    HumanPlayer("Player 1"),
+    RandomBot("Player 1"),
     RandomBot("Player 2"),
     RandomBot("Player 3"),
     RandomBot("Player 4"),

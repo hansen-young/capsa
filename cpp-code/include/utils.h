@@ -26,7 +26,6 @@ std::vector<std::vector<T>> generateChooseK(std::vector<T> &vector, size_t k) {
 }
 
 
-
 template <typename T>
 void cartesianProductHelper(const std::vector<std::vector<T>> &groups,
                             int index,

@@ -1,6 +1,7 @@
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
 #include "logic.h"
+#include "bot_features.h"
 
 namespace py = pybind11;
 
@@ -19,5 +20,8 @@ PYBIND11_MODULE(c_utils, m) {
         .def_readwrite("activePlayerFlag", &GameState::activePlayerFlag)
         .def_readwrite("playerPassFlag", &GameState::playerPassFlag);
 
+    m.def("valueOfPack", &valueOfPack);
     m.def("generateCandidateMoves", &generateCandidateMoves);
+    m.def("simulateMove", &simulateMove);
+    m.def("createBotFeatures1", &createBotFeatures1);
 }
