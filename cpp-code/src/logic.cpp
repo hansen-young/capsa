@@ -199,8 +199,17 @@ void generateMovesPair(std::vector<Card> &cards,
         if (valueGroup.second.size() < 2) { continue; }
         if (valueGroup.first < lastPlayed.first) { continue; }
 
-        std::vector<std::vector<Card>> c = generateChooseK(valueGroup.second, 2);
-        moves.insert(moves.end(), c.begin(), c.end());
+        std::vector<std::vector<Card>> pairs = generateChooseK(valueGroup.second, 2);
+
+        if (valueGroup.first > lastPlayed.first) { moves.insert(moves.end(), pairs.begin(), pairs.end()); }
+        else { 
+            // case: last played is a pair with same value, we should have stronger suit 
+            for (auto &pair : pairs) {
+                if (valueOfPair(pair) > lastPlayed) { 
+                    moves.push_back(pair); 
+                } 
+            }
+        }
     }
 }
 
