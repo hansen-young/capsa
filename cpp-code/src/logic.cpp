@@ -267,10 +267,26 @@ void generateMovesFlush(int lastPlayedPackType,
             continue;
         }
 
-        // case: last played is a flush with the same suit, we can only play flush of higher value 
+        // case: last played is a flush with the same suit, we can only play flush of higher value
         for (auto &flush : flushes) {
-            auto packValue = valueOfPack(flush);
-            if (packValue > lastPlayed) { moves.push_back(flush); }
+            auto packValuePair = valueOfPack(flush);  
+            int packType = packValuePair.first;  // packType can be flush or straight flush 
+            Card packValue = packValuePair.second;
+            
+            // nb: case where generated flush is a regular flush and last played is stronger pack
+            if (packType < lastPlayedPackType) { continue;}
+
+            // nb: if the generated flush is a straight flush, we can do regular check
+            //     (straight flush is compared with the highest card in the flush not the suit)
+            if (packType == PACK_STRAIGHT_FLUSH && packValue > lastPlayedPackValue) {
+                moves.push_back(flush);
+                continue;
+            }
+
+            // nb: if the generated flush is a regular flush, we compare the suit first
+            if (packValue.second < lastPlayedPackValue.second) { continue; }
+            if (packValue.second > lastPlayedPackValue.second ||
+                packValue.first > lastPlayedPackValue.first ) { moves.push_back(flush); }
         }
     }
 }
