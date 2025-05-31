@@ -19,10 +19,10 @@ def cardToString(card: Card):
     return f"{value}{suit}"
 
 
-def display_cards(cards: list[Card]):
+def display_cards(cards: list[Card], end="\n"):
     for card in cards:
         cprint(cardToString(card), end=" ")
-    cprint()
+    cprint(end=end)
 
 
 def display_player_cards(player_id: int, state: GameState):

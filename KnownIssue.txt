@@ -1,0 +1,140 @@
+[Case 1]
+Last Played: Q♦
+Card in Hand: 8♣ 9♦ 10♠ J♥ Q♠
+              3♣ 3♥ J♠ K♣ A♦ A♥ 2♠
+Bot played A♦ instead of K♣ because K♣ was calculated to break the 9♦ 10♠ J♥ Q♠ K♣ straight pack.
+Even when there is a smaller pack that fits better 8♣ 9♦ 10♠ J♥ Q♠.
+
+
+
+[Case 2]
+Last Played: K♣
+Card in Hand: 10♥ J♣ Q♣ K♦ A♣ 
+              7♠ 2♣ 
+Bot played A♣. Probably better to pass.
+0.  | Prediction: 5.127 | Move Reward: 10.547 | Rewards Breakdown: {'stopper_vs_liable': 0.5, 'hand_relative_worth': 9.469696969696972, 'cards_in_hand': 0.576923076923077, 'packs_broken': 0.0}
+1. A♣  | Prediction: 7.978 | Move Reward: 7.415 | Rewards Breakdown: {'stopper_vs_liable': 0.0, 'hand_relative_worth': 8.2421875, 'cards_in_hand': 0.673076923076923, 'packs_broken': -1.5}
+2. 2♣  | Prediction: 6.649 | Move Reward: 7.488 | Rewards Breakdown: {'stopper_vs_liable': 0.0, 'hand_relative_worth': 7.56510416666667, 'cards_in_hand': 0.673076923076923, 'packs_broken': -0.75}
+
+
+
+[Case 3]
+Last Played: _
+Card in Hand: 7♠ 10♥ J♣ Q♣ K♦ 2♣ 
+Bot played 10♥ instead of 7♠
+0. K♦  | Prediction: 3.908 | Move Reward: 8.119 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': 7.2499999999999964, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+1. 2♣  | Prediction: 2.533 | Move Reward: 5.737 | Rewards Breakdown: {'stopper_vs_liable': -0.5, 'hand_relative_worth': 5.467741935483872, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+2. J♣  | Prediction: 2.338 | Move Reward: 9.692 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': 8.822580645161286, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+3. Q♣  | Prediction: 3.174 | Move Reward: 8.853 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': 7.9838709677419395, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+4. 10♥  | Prediction: 11.157 | Move Reward: 10.426 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': 9.55645161290323, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+5. 7♠  | Prediction: 9.262 | Move Reward: 12.837 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': 11.967741935483867, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+
+
+
+[Case 4]
+Last Played: _
+Card in Hand: 5♦ 5♣ 5♠ 7♣ 7♥ 
+              4♥ 6♦ 9♣ Q♥ K♠ 2♥ 
+Bot played Q♥. Better move would be 4♥ or 5♦ 5♣ 5♠ 7♣ 7♥.
+0. 5♦  | Prediction: -6.307 | Move Reward: -9.239 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -6.877155172413789, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -2.25}
+1. 6♦  | Prediction: -3.444 | Move Reward: -7.316 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -7.204741379310349, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+2. 5♣  | Prediction: -12.607 | Move Reward: -9.280 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -6.918103448275863, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -2.25}
+3. 7♣  | Prediction: -14.427 | Move Reward: -9.185 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -7.573275862068969, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -1.5}
+4. 9♣  | Prediction: -14.917 | Move Reward: -8.340 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -8.228448275862075, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+5. 2♥  | Prediction: -23.210 | Move Reward: -10.346 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -10.234913793103452, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+6. 4♥  | Prediction: -15.817 | Move Reward: -6.743 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -6.631465517241377, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+7. 7♥  | Prediction: -6.369 | Move Reward: -9.226 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -7.614224137931034, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -1.5}
+8. Q♥  | Prediction: -1.191 | Move Reward: -9.364 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -9.252155172413792, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+9. 5♠  | Prediction: -9.472 | Move Reward: -9.362 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -7.000000000000002, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -2.25}
+10. K♠  | Prediction: -11.703 | Move Reward: -9.732 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -9.620689655172413, 'cards_in_hand': 0.28846153846153844, 'packs_broken': -0.0}
+11. 7♣ 7♥  | Prediction: -12.803 | Move Reward: -8.113 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -7.447916666666665, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -0.75}
+12. 5♦ 5♣  | Prediction: -12.939 | Move Reward: -7.261 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -5.845734126984121, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+13. 5♦ 5♠  | Prediction: -8.956 | Move Reward: -7.355 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -5.939980158730158, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+14. 5♣ 5♠  | Prediction: -11.788 | Move Reward: -7.402 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -5.987103174603177, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+15. 5♦ 5♣ 5♠ 7♣ 7♥  | Prediction: -9.113 | Move Reward: -2.094 | Rewards Breakdown: {'stopper_vs_liable': 0.0, 'hand_relative_worth': -2.166666666666668, 'cards_in_hand': 0.673076923076923, 'packs_broken': -0.6000000000000001}
+
+
+
+[Case 5]
+Last Played: K♦
+Card in Hand: 5♦ 5♣ 5♠ 7♣ 7♥ 
+              4♥ 6♦ 9♣ K♠ 2♥ 
+Bot played pass instead of K♠. Playing K♠ is calculated to lower down the average hand worth.
+0.  | Prediction: -6.703 | Move Reward: -8.763 | Rewards Breakdown: {'stopper_vs_liable': -0.4, 'hand_relative_worth': -8.651785714285714, 'cards_in_hand': 0.28846153846153844, 'packs_broken': 0.0}
+1. 2♥  | Prediction: -15.659 | Move Reward: -11.651 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -11.73611111111111, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -0.0}
+2. K♠  | Prediction: -12.721 | Move Reward: -10.957 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -11.041666666666664, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -0.0}
+
+
+
+[Case 6]
+Last Played: 9♥
+Card in Hand: 8♣ 9♦ 10♠ J♥ Q♠
+              3♣ 3♥ J♠ A♥ 2♠
+Bot played pass instead of J♠ because J♠ breaks the straight pack and lowers down the hand_relative_worth.
+0.  | Prediction: 0.287 | Move Reward: 1.686 | Rewards Breakdown: {'stopper_vs_liable': 0.19999999999999996, 'hand_relative_worth': 1.1971153846153815, 'cards_in_hand': 0.28846153846153844, 'packs_broken': 0.0}
+1. A♥  | Prediction: -5.066 | Move Reward: -0.235 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -0.31944444444444997, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -0.0}
+2. J♥  | Prediction: -0.231 | Move Reward: -0.068 | Rewards Breakdown: {'stopper_vs_liable': 0.29999999999999993, 'hand_relative_worth': 0.7472222222222236, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+3. 2♠  | Prediction: -1.511 | Move Reward: -0.635 | Rewards Breakdown: {'stopper_vs_liable': -0.30000000000000004, 'hand_relative_worth': -0.7194444444444503, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -0.0}
+4. 10♠  | Prediction: -0.418 | Move Reward: 0.243 | Rewards Breakdown: {'stopper_vs_liable': 0.29999999999999993, 'hand_relative_worth': 1.05833333333333, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+5. J♠  | Prediction: -4.352 | Move Reward: -0.113 | Rewards Breakdown: {'stopper_vs_liable': 0.29999999999999993, 'hand_relative_worth': 0.702777777777781, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+6. Q♠  | Prediction: -3.530 | Move Reward: -0.468 | Rewards Breakdown: {'stopper_vs_liable': 0.29999999999999993, 'hand_relative_worth': 0.3472222222222232, 'cards_in_hand': 0.38461538461538464, 'packs_broken': -1.5}
+
+Bot played pass instead of J♣
+0.  | Prediction: 23.735 | Move Reward: 17.167 | Rewards Breakdown: {'stopper_vs_liable': 0.3, 'hand_relative_worth': 15.905448717948714, 'cards_in_hand': 0.9615384615384615, 'packs_broken': 0.0}
+1. 2♣  | Prediction: 3.652 | Move Reward: 12.033 | Rewards Breakdown: {'stopper_vs_liable': -0.2, 'hand_relative_worth': 11.174999999999997, 'cards_in_hand': 1.0576923076923077, 'packs_broken': -0.0}
+2. J♣  | Prediction: 13.776 | Move Reward: 21.833 | Rewards Breakdown: {'stopper_vs_liable': 0.4, 'hand_relative_worth': 20.374999999999996, 'cards_in_hand': 1.0576923076923077, 'packs_broken': -0.0}
+3. Q♣  | Prediction: 12.022 | Move Reward: 19.533 | Rewards Breakdown: {'stopper_vs_liable': 0.4, 'hand_relative_worth': 18.075000000000003, 'cards_in_hand': 1.0576923076923077, 'packs_broken': -0.0}
+
+
+
+[Case 7]
+Last Played: _
+Card in Hand: 8♣ 9♦ 10♠ J♥ Q♠
+              3♣ 3♥ A♥ 2♠
+Bot played 3♣ instead of 3♣ 3♥ or 8♣ 9♦ 10♠ J♥ Q♠. Because playing the pack significantly drops the hand_relative_worth.
+                                                     If there is no 3♥, playing 3♣ would make sense because A♥ and 2♠ are stoppers.
+0. 9♦  | Prediction: -2.111 | Move Reward: -3.427 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -2.9575892857142883, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+1. 3♣  | Prediction: 3.613 | Move Reward: -1.853 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -1.3839285714285676, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+2. 8♣  | Prediction: -0.545 | Move Reward: -3.192 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -2.7232142857142883, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+3. A♥  | Prediction: -3.888 | Move Reward: -4.083 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -4.363839285714288, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.0}
+4. 3♥  | Prediction: 1.543 | Move Reward: -1.887 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -1.4174107142857117, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+5. J♥  | Prediction: -1.171 | Move Reward: -4.029 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -3.560267857142856, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+6. 2♠  | Prediction: -12.921 | Move Reward: -4.384 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -4.665178571428568, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.0}
+7. 10♠  | Prediction: -0.441 | Move Reward: -3.795 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -3.325892857142856, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+8. Q♠  | Prediction: -3.928 | Move Reward: -4.331 | Rewards Breakdown: {'stopper_vs_liable': -0.20000000000000007, 'hand_relative_worth': -3.861607142857144, 'cards_in_hand': 0.4807692307692307, 'packs_broken': -0.75}
+9. 3♣ 3♥  | Prediction: 2.160 | Move Reward: 1.002 | Rewards Breakdown: {'stopper_vs_liable': -0.10000000000000009, 'hand_relative_worth': 0.8997252747252826, 'cards_in_hand': 0.576923076923077, 'packs_broken': -0.375}
+10. 8♣ 9♦ 10♠ J♥ Q♠  | Prediction: -3.584 | Move Reward: -5.372 | Rewards Breakdown: {'stopper_vs_liable': 0.19999999999999996, 'hand_relative_worth': -6.437499999999998, 'cards_in_hand': 0.8653846153846154, 'packs_broken': -0.0}
+
+
+
+[Case 8]
+Last played: 3♥
+Card in Hand: J♣ 2♣
+Bot played pass instead of J♣.
+0.  | Prediction: 7.112 | Move Reward: 11.969 | Rewards Breakdown: {'stopper_vs_liable': 0.4, 'hand_relative_worth': 10.511363636363633, 'cards_in_hand': 1.0576923076923077, 'packs_broken': 0.0}
+1. 2♣  | Prediction: -4.289 | Move Reward: 3.616 | Rewards Breakdown: {'stopper_vs_liable': -0.1, 'hand_relative_worth': 2.5624999999999964, 'cards_in_hand': 1.153846153846154, 'packs_broken': -0.0}
+2. J♣  | Prediction: 5.569 | Move Reward: 22.216 | Rewards Breakdown: {'stopper_vs_liable': 0.5, 'hand_relative_worth': 20.562500000000004, 'cards_in_hand': 1.153846153846154, 'packs_broken': -0.0}
+
+
+
+[Case 9]
+Last Played: 9♣
+Card in Hand: 8♣ 9♦ 10♠ J♥ Q♠
+              2♠
+Bot played 10♠ which completely destroy the pack. Playing 2♠ is instant win.
+0.  | Prediction: 7.299 | Move Reward: 0.027 | Rewards Breakdown: {'stopper_vs_liable': 0.0, 'hand_relative_worth': -0.6458333333333321, 'cards_in_hand': 0.673076923076923, 'packs_broken': 0.0}
+1. J♥  | Prediction: 5.162 | Move Reward: -0.672 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': -0.7916666666666661, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.75}
+2. 2♠  | Prediction: 0.516 | Move Reward: -2.356 | Rewards Breakdown: {'stopper_vs_liable': -0.5, 'hand_relative_worth': -2.6250000000000018, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.0}
+3. 10♠  | Prediction: 8.124 | Move Reward: -0.284 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': -0.40277777777777857, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.75}
+4. Q♠  | Prediction: 0.299 | Move Reward: -1.172 | Rewards Breakdown: {'stopper_vs_liable': 0.09999999999999998, 'hand_relative_worth': -1.2916666666666732, 'cards_in_hand': 0.7692307692307693, 'packs_broken': -0.75}
+
+
+
+[Case 10]
+Last Played: 8♣
+Card in Hand: J♣ 2♣
+Unplayed Cards: 9♦ J♥ 2♠ Q♠ | 6♦ K♠
+Model knows one player has 4 cards, and the other has 2 cards. Even if they cooperate, there is no way to prevent it from winning if he played J♣. Played pass instead.
+0.  | Prediction: 5.543 | Move Reward: 7.967 | Rewards Breakdown: {'stopper_vs_liable': -0.2, 'hand_relative_worth': 7.109375, 'cards_in_hand': 1.0576923076923077, 'packs_broken': 0.0}
+1. 2♣  | Prediction: -1.071 | Move Reward: 0.607 | Rewards Breakdown: {'stopper_vs_liable': -0.1, 'hand_relative_worth': -0.4464285714285676, 'cards_in_hand': 1.153846153846154, 'packs_broken': -0.0}
+2. J♣  | Prediction: 3.218 | Move Reward: 17.750 | Rewards Breakdown: {'stopper_vs_liable': -0.1, 'hand_relative_worth': 16.69642857142857, 'cards_in_hand': 1.153846153846154, 'packs_broken': -0.0}

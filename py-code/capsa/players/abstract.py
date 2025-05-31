@@ -25,7 +25,9 @@ class Bot(Player):
         super().__init__(name)
         self.show_cards = show_cards
 
-    def make_move(self, player_id, candidate_moves, state) -> int:
+    def make_move(
+        self, player_id: int, candidate_moves: list[list[Card]], state: GameState
+    ) -> int:
         if self.show_cards:
             cprint("\nCards in Hand:")
             display_player_cards(player_id, state)

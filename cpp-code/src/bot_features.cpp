@@ -8,8 +8,8 @@ std::array<float, 110> createBotFeatures1(size_t playerId, GameState state) {
       - 01 : Card in other player's hand
       - 10 : Card in player's hand
       - 11 : Card is played
-    - 104-106 : Opponent's hand size
-    - 107-109 : Opponent's skip flag
+    - 104-106 : Opponent's hand size (hand_size / 13 -> 0.0 to 1.0)
+    - 107-109 : Opponent's skip flag (0 or 1)
     */
 
     std::array<float, 110> features; features.fill(0.0f);
