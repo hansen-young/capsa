@@ -22,6 +22,7 @@ PYBIND11_MODULE(c_utils, m) {
 
     m.def("valueOfPack", &valueOfPack);
     m.def("generateCandidateMoves", &generateCandidateMoves);
+    m.def("copyGameState", &copyGameState, py::return_value_policy::copy);
     m.def("simulateMove", &simulateMove);
     m.def("createBotFeatures1", &createBotFeatures1);
 }

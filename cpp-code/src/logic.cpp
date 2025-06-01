@@ -414,6 +414,7 @@ std::vector<std::vector<Card>> generateCandidateMoves(size_t playerId, GameState
     return moves;
 }
 
+GameState copyGameState(const GameState &other) { return GameState(other); }
 GameState simulateMove(size_t playerId, GameState state, std::vector<Card> &playedCards) {
     state.update(playerId, playedCards);
     return state;

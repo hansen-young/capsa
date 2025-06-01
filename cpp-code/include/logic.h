@@ -32,6 +32,25 @@ struct GameState {
     std::array<bool, 4> activePlayerFlag = {true, true, true, true};
     std::array<bool, 4> playerPassFlag = {false, false, false, false};
 
+    GameState() = default;
+    GameState(const GameState &other)
+        : cards(other.cards),
+          lastMovePlayerId(other.lastMovePlayerId),
+          lastPlayedCards(other.lastPlayedCards),
+          activePlayerFlag(other.activePlayerFlag),
+          playerPassFlag(other.playerPassFlag) {}
+    
+    GameState &operator=(const GameState &other) {
+        if (this != &other) {
+            cards = other.cards;
+            lastMovePlayerId = other.lastMovePlayerId;
+            lastPlayedCards = other.lastPlayedCards;
+            activePlayerFlag = other.activePlayerFlag;
+            playerPassFlag = other.playerPassFlag;
+        }
+        return *this;
+    }
+
     void clearLastPlayedCards();
     void clearPlayerPassFlags();
     int countPlayerCards(size_t playerId);
@@ -84,6 +103,7 @@ std::unordered_map<int, std::vector<Card>> groupCardsByValue(std::vector<Card> &
 std::unordered_map<int, std::vector<Card>> groupCardsBySuit(std::vector<Card> &cards);
 
 std::vector<std::vector<Card>> generateCandidateMoves(size_t playerId, GameState state);
+GameState copyGameState(const GameState &state);
 GameState simulateMove(size_t playerId, GameState state, std::vector<Card> &playedCards);
 
 #endif // LOGIC_H

@@ -1,6 +1,7 @@
 from typing import TypeAlias
 from .c_utils import (
     GameState,
+    copyGameState,
     createBotFeatures1,
     generateCandidateMoves,
     simulateMove,
