@@ -263,8 +263,6 @@ void generateMovesFlush(int lastPlayedPackType,
                         std::unordered_map<int, std::vector<Card>> &cardSuitGroup,
                         std::vector<std::vector<Card>> &moves) {
     // nb: straight flush will also be generated in this function
-    std::pair<int, Card> lastPlayed = {lastPlayedPackType, lastPlayedPackValue};
-
     for (auto &suitGroup : cardSuitGroup) {
         if (suitGroup.second.size() < 5) { continue; }
 

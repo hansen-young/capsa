@@ -10,6 +10,7 @@ from capsa.logging import cprint
 from capsa.utils import (
     Card,
     GameState,
+    copyGameState,
     createBotFeatures1,
     display_cards,
     generateCandidateMoves,
@@ -49,10 +50,28 @@ def find_liabilities_and_stoppers(player_id: int, state: GameState, cutoff: floa
     return liabilities_in_hand, stoppers_in_hand
 
 
-def compute_hand_relative_worth(player_id: int, state: GameState):
+def compute_hand_relative_worth(
+    player_id: int, state: GameState, good_packs: list[list[Card]]
+):
     """
     Compute the average worth of a player's hand relative to the unplayed cards.
     Card worth = cvalue + 0.125 * csuit
+
+    [Scenario 1]
+    Card in Hand: 5♦ 5♣ 5♠ 7♣ 7♥
+                  4♥ 6♦ 9♣ Q♥ K♠ 2♥
+
+    Playing 4♥ still leaves the player with smaller average worth in hand, however
+    5♦ 5♣ 5♠ 7♣ 7♥ is a good pack, it should not be considered as low worth.
+
+    So instead of only computing the average worth of the whole hand, we need also
+    to compute the average worth of the hand without each pack.
+
+    [Scenario 2]
+    Hand 1: 3♣ 5♣ 8♣ J♣ K♣
+    Hand 2: 3♥ 5♣ 8♣ J♣ K♣
+
+    Hand 1 should have higher average worth than Hand 2, because it can form a flush.
     """
 
     cards_in_hand = 0
@@ -76,11 +95,24 @@ def compute_hand_relative_worth(player_id: int, state: GameState):
                 cards_in_hand += 1
                 cards_in_hand_worth += worth
 
+    # --- Might need to remove packs from the calculation --- #
+
     if cards_in_hand == 0 or cards_unplayed == 0:
         return 1.0
 
     average_hand_worth = cards_in_hand_worth / cards_in_hand
     average_unplayed_worth = cards_unplayed_worth / cards_unplayed
+
+    # for pack in good_packs:
+    #     if len(pack) == cards_in_hand:
+    #         # todo: check how to handle this
+    #         continue
+
+    #     pack_worth = sum(cvalue + 0.125 * csuit for cvalue, csuit in pack)
+    #     remaining_worth = cards_in_hand_worth - pack_worth
+    #     remaining_cards = cards_in_hand - len(pack)
+
+    #     average_hand_worth += remaining_worth
 
     return average_hand_worth - average_unplayed_worth
 
@@ -93,14 +125,10 @@ def find_good_packs(
     A good pack is a pack that uses more weaker cards than stronger ones.
     """
 
-    state_ = GameState()
-    state_.cards = deepcopy(state.cards)
-    state_.lastMovePlayerId = state.lastMovePlayerId
+    state_ = copyGameState(state)
     state_.lastPlayedCards = []
-    state_.activePlayerFlag = deepcopy(state.activePlayerFlag)
-    state_.playerPassFlag = deepcopy(state.playerPassFlag)
 
-    good_packs = []
+    good_packs: list[list[Card]] = []
     candidate_moves = generateCandidateMoves(player_id, state_)
 
     for move in candidate_moves:
@@ -118,6 +146,14 @@ def find_good_packs(
 
 
 def count_num_packs_broken(move: list[Card], good_packs: list[list[Card]]):
+    """
+    1. Scenario: 5♦ 5♣ 5♠ 7♣ 7♥
+       It would be more acceptable to play 7♣ 7♥ than 7♣.
+       It is debatable if playing 5♦ 5♣ is better than playing 5♦.
+    2. Scenario: 5♦ 5♣ 6♠ 7♣ 8♥ 9♣
+       Playing 5♦ 5♣ is a bad move, however playing 5♦ is good in most case.
+    """
+
     num_broken = 0
 
     if len(move) == 0:
@@ -157,22 +193,8 @@ def move_reward(
     #       which can be either good or bad depending on the game state.
     liabilities, stoppers = find_liabilities_and_stoppers(player_id, result_state, 0.80)
     score_liabilities = len(liabilities) * 0.1
-    score_stoppers = len(stoppers) * 0.5
+    score_stoppers = len(stoppers) * 0.35
     score["stopper_vs_liable"] = score_stoppers - score_liabilities
-
-    # Reward the model if the average worth of the player's hand is higher than the average worth of the unplayed cards
-    # pros: encourages the model to first throw away cards that are worth less.
-    # cons: the model will less likely play cards that is worth higher than the average worth of the unplayed cards.
-    #       because it will lower down the average worth of cards in hand more than it lowers down the average worth of
-    #       unplayed cards.
-    hand_relative_worth = compute_hand_relative_worth(player_id, result_state)
-    score["hand_relative_worth"] = hand_relative_worth * 5.0
-
-    # Reward the model for having less cards in hand
-    # pros: encourages the model to play cards when it can.
-    # cons: the model can throw away strong cards just to reduce the number of cards in hand
-    cards_in_hand = result_state.countPlayerCards(player_id)
-    score["cards_in_hand"] = (1 - cards_in_hand / 13) * 1.25
 
     # Punish the model for breaking stronger packs
     # pros: encourages the model to save cards that can form stronger packs
@@ -180,6 +202,22 @@ def move_reward(
     good_packs = find_good_packs(player_id, state, stoppers, liabilities)
     num_packs_broken = count_num_packs_broken(move, good_packs)
     score["packs_broken"] = -num_packs_broken * 0.75
+
+    # Reward the model if the average worth of the player's hand is higher than the average worth of the unplayed cards
+    # pros: encourages the model to first throw away cards that are worth less.
+    # cons: the model will less likely play cards that is worth higher than the average worth of the unplayed cards.
+    #       because it will lower down the average worth of cards in hand more than it lowers down the average worth of
+    #       unplayed cards.
+    hand_relative_worth = compute_hand_relative_worth(
+        player_id, result_state, good_packs
+    )
+    score["hand_relative_worth"] = hand_relative_worth * 5.0
+
+    # Reward the model for having less cards in hand
+    # pros: encourages the model to play cards when it can.
+    # cons: the model can throw away strong cards just to reduce the number of cards in hand
+    cards_in_hand = result_state.countPlayerCards(player_id)
+    score["cards_in_hand"] = (1 - cards_in_hand / 13) * 1.25
 
     return sum(score.values()), score
 
