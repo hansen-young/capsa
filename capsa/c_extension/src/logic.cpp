@@ -1,5 +1,27 @@
 #include "logic.h"
+#include <vector>
+#include <random>
+#include <algorithm>
 
+
+GameState GameState::createNewState() {
+    GameState state;
+
+    // Initialize cards with player IDs (0 to 3) repeated 13 times
+    std::array<uint8_t, 52> cards;
+    for (int i = 0; i < 52; ++i) { cards[i] = i % 4; }
+
+    // Shuffle the cards
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(cards.begin(), cards.end(), g);
+
+    state.cards = cards;
+    state.lastMovePlayerId = cards[2];  // 3♦ owner  
+    state.lastPlayedCards = {};
+
+    return state;
+}
 
 void GameState::clearLastPlayedCards() { lastPlayedCards.clear(); }
 

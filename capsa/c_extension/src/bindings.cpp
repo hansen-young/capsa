@@ -8,6 +8,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(c_utils, m) {
     py::class_<GameState>(m, "GameState")
         .def(py::init<>())
+        .def_static("createNewState", &GameState::createNewState)
         .def("clearLastPlayedCards", &GameState::clearLastPlayedCards)
         .def("clearPlayerPassFlags", &GameState::clearPlayerPassFlags)
         .def("countPlayerCards", &GameState::countPlayerCards)

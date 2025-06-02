@@ -51,6 +51,7 @@ struct GameState {
         return *this;
     }
 
+    static GameState createNewState();
     void clearLastPlayedCards();
     void clearPlayerPassFlags();
     int countPlayerCards(size_t playerId);
